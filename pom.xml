@@ -13,7 +13,7 @@
   <packaging>bundle</packaging>
   <name>ExpiringMap</name>
   <description>A high performance thread-safe map that expires entries</description>
-  <url>http://github.com/jhalterman/expiringmap/</url>
+  <url>https://github.com/peter-fu/expiringmap</url>
 
   <properties>
     <devCompileVersion>1.8</devCompileVersion>
@@ -36,9 +36,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git@github.com:jhalterman/expiringmap.git</connection>
-    <developerConnection>scm:git:git@github.com:jhalterman/expiringmap.git</developerConnection>
-    <url>scm:git:git@github.com:jhalterman/expiringmap.git</url>
+    <connection>scm:git:git@github.com:peter-fu/expiringmap.git</connection>
+    <developerConnection>scm:git:git@github.com:peter-fu/expiringmap.git</developerConnection>
+    <url>scm:git:git@github.com:peter-fu/expiringmap.git</url>
   </scm>
 
   <dependencies>
@@ -153,21 +153,40 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.1</version>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.7</version>
             <executions>
               <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
+                <id>default-deploy</id>
+                <phase>deploy</phase>
                 <goals>
-                  <goal>sign</goal>
+                  <goal>deploy</goal>
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <serverId>kernelogic-nexus</serverId>
+              <nexusUrl>http://115.28.15.44:8080/nexus/</nexusUrl>
+              <skipStaging>true</skipStaging>
+            </configuration>
           </plugin>
         </plugins>
       </build>
     </profile>
   </profiles>
+
+  <distributionManagement>
+    <repository>
+      <id>KernelogicReleasesDeploy</id>
+      <name>Kernelogic Nexus Releases Repository</name>
+      <url>http://115.28.15.44:8080/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>KernelogicSnapshotsDeploy</id>
+      <name>Kernelogic Nexus Snapshots Repository</name>
+      <url>http://115.28.15.44:8080/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
 </project>
