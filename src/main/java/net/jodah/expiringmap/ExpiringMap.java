@@ -720,7 +720,7 @@ public class ExpiringMap<K, V> implements ConcurrentMap<K, V> {
   }
 
   @Override
-  public V get(Object key) {
+  public synchronized V get(Object key) {
     ExpiringEntry<K, V> entry = getEntry(key);
 
     if (entry == null) {
